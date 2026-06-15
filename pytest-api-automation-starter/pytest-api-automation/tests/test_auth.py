@@ -7,7 +7,7 @@ This is the simplest starting point — just POST credentials, check response.
 API docs: https://restful-booker.herokuapp.com/apidoc/index.html#api-Auth
 """
 
-import pytest
+import pytest # pyright: ignore[reportMissingImports]
 
 
 # ── Happy Path ────────────────────────────────────────────────────────────────
