@@ -103,3 +103,79 @@ def created_booking(api_session, base_url, sample_booking_payload, auth_token):
         f"{base_url}/booking/{booking_id}",
         headers={"Cookie": f"token={auth_token}"}
     )
+
+    """
+conftest_reporting_additions.py — Day 3 (Part 2)
+
+These are ADDITIONS to your existing conftest.py — append this content
+to the bottom of your current conftest.py file. Do not replace the
+whole file; your existing fixtures (api_session, base_url, auth_token,
+etc.) must stay.
+
+New concepts introduced:
+  - pytest_html_report_title  : custom title on the HTML report
+  - pytest_configure          : adds environment metadata to the report
+  - pytest_html_results_summary : adds a custom summary section
+  - hookimpl for capturing extra info on test failure
+"""
+
+import pytest
+
+
+# ── Custom report title ────────────────────────────────────────────────────────
+
+def pytest_html_report_title(report):
+    """Changes the <title> and main heading of the generated HTML report."""
+    report.title = "QA Automation Report — pytest-api-automation (Chaitra Anand)"
+
+
+# ── Add environment metadata (shows at top of HTML report) ─────────────────────
+
+def pytest_configure(config):
+    """
+    Adds an 'Environment' table to the top of the HTML report.
+    Useful in real projects to record which API/environment was tested,
+    browser version, build number, etc. — exactly what interviewers expect
+    to see in a professional test report.
+    """
+    if hasattr(config, "_metadata"):
+        config._metadata["Project"] = "pytest-api-automation"
+        config._metadata["API Under Test"] = "Restful-Booker (restful-booker.herokuapp.com)"
+        config._metadata["Tester"] = "Chaitra Anand"
+        config._metadata["Test Type"] = "API Automation (pytest + requests)"
+
+
+# ── Custom summary section in the HTML report ───────────────────────────────────
+
+def pytest_html_results_summary(prefix, summary, postfix):
+    """
+    Adds a custom note block right above the results table in the HTML report.
+    """
+    prefix.extend([
+        "<p><strong>Note:</strong> This suite covers Auth, Booking GET/POST/PUT/PATCH "
+        "endpoints. One known defect is documented and marked xfail "
+        "(see test_bookings_post.py). See README.md / TEST_NOTES.md for full defect "
+        "list and coverage summary.</p>"
+    ])
+
+
+# ── Capture extra failure context (appears in report when a test fails) ────────
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    """
+    When a test fails, this attaches the actual HTTP response (if available)
+    to the HTML report row, so you don't have to dig through terminal logs
+    to see what the API actually returned.
+    """
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        # If the test stored a 'last_response' attribute on itself, show it
+        extra = getattr(report, "extra", [])
+        if hasattr(item, "_last_response_text"):
+            from pytest_html import extras
+            extra.append(extras.text(item._last_response_text, name="Last API Response"))
+            report.extra = extra
+
