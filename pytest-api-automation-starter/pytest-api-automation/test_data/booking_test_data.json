@@ -1,0 +1,51 @@
+{
+  "valid_bookings": [
+    {
+      "firstname": "Sally",
+      "lastname": "Brown",
+      "totalprice": 150,
+      "depositpaid": true,
+      "bookingdates": {
+        "checkin": "2026-07-01",
+        "checkout": "2026-07-10"
+      },
+      "additionalneeds": "Breakfast"
+    },
+    {
+      "firstname": "Raj",
+      "lastname": "Kumar",
+      "totalprice": 300,
+      "depositpaid": false,
+      "bookingdates": {
+        "checkin": "2026-08-15",
+        "checkout": "2026-08-20"
+      },
+      "additionalneeds": "Dinner"
+    },
+    {
+      "firstname": "Min",
+      "lastname": "Lee",
+      "totalprice": 80,
+      "depositpaid": true,
+      "bookingdates": {
+        "checkin": "2026-09-01",
+        "checkout": "2026-09-02"
+      },
+      "additionalneeds": ""
+    }
+  ],
+  "invalid_price_bookings": [
+    {
+      "description": "negative price",
+      "totalprice": -100
+    },
+    {
+      "description": "zero price",
+      "totalprice": 0
+    },
+    {
+      "description": "extremely large price",
+      "totalprice": 999999999
+    }
+  ]
+}
