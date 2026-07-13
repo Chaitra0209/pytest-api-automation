@@ -37,6 +37,7 @@ jobs:
 
       - name: Run Complete test suite
         run: |
+           mkdir -p reports
            python -m pytest -v --html=report.html --self-contained-html
 
       - name: Upload HTML report as artifact
