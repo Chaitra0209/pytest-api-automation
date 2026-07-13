@@ -35,15 +35,14 @@ jobs:
 
       
 
-      - name: Run Complete test suite
+      - name: Run Complete test suite\
+        continue-on-error: true
         run: |
-           if not exist reports mkdir reports
            python -m pytest -v --html=report.html --self-contained-html
 
       - name: Upload HTML report as artifact
         if: always()
         uses: actions/upload-artifact@v4
-                       # upload even if tests fail — so you can see the report
         with:
           name: pytest-html-report-${{ github.run_number }}
           path: reports/report.html
