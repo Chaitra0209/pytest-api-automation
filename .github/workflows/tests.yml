@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     timeout-minutes: 15        # safety: kill the job if it hangs
 
     steps:
@@ -37,7 +37,7 @@ jobs:
 
       - name: Run Complete test suite
         run: |
-           mkdir -p reports
+           if not exist reports mkdir reports
            python -m pytest -v --html=report.html --self-contained-html
 
       - name: Upload HTML report as artifact
