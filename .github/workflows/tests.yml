@@ -35,7 +35,7 @@ jobs:
 
       
 
-      - name: Run Complete test suite\
+      - name: Run Complete test suite
         continue-on-error: true
         run: |
            python -m pytest -v --html=report.html --self-contained-html
@@ -45,5 +45,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pytest-html-report-${{ github.run_number }}
-          path: reports/report.html
-          retention-days: 30
+          path: report.html
+          #retention-days: 30
