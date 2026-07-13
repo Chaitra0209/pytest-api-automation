@@ -38,11 +38,9 @@ jobs:
           pytest -m smoke -v --tb=short
         continue-on-error: false   # stop if smoke tests fail
 
-      - name: Run full test suite
+      - name: Run Complete test suite
         run: |
-          pytest -v --tb=short \
-            --html=reports/report.html \
-            --self-contained-html
+           python -m pytest -v --html=report.html --self-contained-html
 
       - name: Upload HTML report as artifact
         uses: actions/upload-artifact@v4
