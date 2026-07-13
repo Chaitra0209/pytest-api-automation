@@ -1,4 +1,5 @@
 # pytest-api-automation
+<<<<<<< HEAD
 
 ![Pytest](https://github.com/YOUR_USERNAME/pytest-api-automation/actions/workflows/tests.yml/badge.svg)
 
@@ -128,3 +129,23 @@ pytest --html=reports/report.html --self-contained-html
 
 *Built as a personal upskilling project — June 2026*  
 *Author: Chaitra Anand | [LinkedIn](https://linkedin.com/in/chaitra-anand-68497a42)*
+=======
+Python Automation using pytest 
+
+# Daily Progress Update — paste this section into your existing README.md
+# (replace the old "Daily Progress" table with this one)
+
+## Daily Progress
+
+| Day | Focus | Tests Added | Key Concepts |
+|---|---|---|---|
+| Day 1 | Project setup, Auth + GET tests | 12 | Fixtures, `yield` teardown, session scope, markers |
+| Day 2 | POST tests, data-driven JSON tests | 8 | `xfail` (documented a real API defect), JSON test data, custom test IDs |
+| Day 3 | PUT/PATCH tests, reporting polish | 8 | Stacked `@parametrize`, auth-negative tests, `skip`/`skipif`, custom HTML report metadata |
+
+**Total: 28 test cases** across Auth, GET, POST, PUT, and PATCH endpoints.
+
+### Known Defects Found
+1. **POST /booking with missing required fields returns 500** instead of 400 — documented via `@pytest.mark.xfail` in `test_bookings_post.py`. This demonstrates the framework correctly distinguishes "expected failure due to known bug" from "broken test."
+
+>>>>>>> ade7624 (saved the tests_bookings_posts.py file and ran python -m pytest collect only command')

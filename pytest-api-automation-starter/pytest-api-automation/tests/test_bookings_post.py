@@ -76,7 +76,7 @@ def test_create_booking_with_missing_required_fields(api_session, base_url):
 
     response = api_session.post(f"{base_url}/booking", json=incomplete_payload)
 
-    assert response.status_code = 500, (
+    assert response.status_code != 500, (
         f"API crashed with 500 on missing required fields. Body: {response.text}"
     )
 
