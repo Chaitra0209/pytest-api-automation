@@ -41,8 +41,9 @@ jobs:
            python -m pytest -v --html=report.html --self-contained-html
 
       - name: Upload HTML report as artifact
+        if: always()
         uses: actions/upload-artifact@v4
-        if: always()               # upload even if tests fail — so you can see the report
+                       # upload even if tests fail — so you can see the report
         with:
           name: pytest-html-report-${{ github.run_number }}
           path: reports/report.html
